@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>{{title}}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;1,300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,300&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow-y: hidden;
+        }
+
+        .container {
+            width: 100%;
+            display: flex;
+            align-items: stretch;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .months {
+            width: 60%;
+            background-color: #1A2130;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* Tres meses por fila */
+            grid-gap: 15px;
+            overflow-y: auto;
+        }
+
+        .month {
+            position: relative;
+            height: 19vh;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #8a8a8a;
+            cursor: pointer;
+        }
+
+        .month p {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #dbdbdb;
+            font-size: 2.2vh;
+            font-family: "Montserrat", sans-serif;
+            margin-top: 1vh;
+            width: fit-content;
+            /* Asegura que el p tenga solo el ancho de su contenido */
+        }
+
+        .month::before {
+            content: "";
+            border-radius: 8px;
+            width: 100%;
+            height: 55%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.8) 50%, rgba(255, 255, 255, 0));
+        }
+
+        .month:hover {
+            border: 1px solid #ffffff;
+        }
+
+        div[id="1"],
+        div[id="13"] {
+            background-image: url('https://i.pinimg.com/736x/2f/35/94/2f3594deff948f8bcba556296989f96a.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+
+        div[id="2"],
+        div[id="14"] {
+            background-image: url('https://st3.depositphotos.com/12889260/33247/v/450/depositphotos_332476340-stock-illustration-forest-foggy-landscape-flat-vector.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div[id="3"],
+        div[id="15"] {
+            background-image: url('https://img.freepik.com/vector-premium/fondo-ilustracion-vector-paisaje_1948-84.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div[id="4"],
+        div[id="16"] {
+            background-image: url('https://static.vecteezy.com/system/resources/previews/002/099/704/non_2x/mountain-beautiful-landscape-background-design-illustration-free-vector.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div[id="5"],
+        div[id="17"] {
+            background-image: url('https://static.vecteezy.com/system/resources/previews/000/192/818/non_2x/vector-landscape-illustration.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div[id="6"],
+        div[id="18"] {
+            background-image: url('https://img.freepik.com/vector-gratis/paisaje-montana-arboles-al-atardecer-pintado-mano_1048-19076.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div[id="7"],
+        div[id="19"] {
+            background-image: url('https://img.freepik.com/vector-premium/paisaje-siluetas-montanas-rio-montana-fondo-naturaleza-vector_3482-8975.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div[id="8"],
+        div[id="20"] {
+            background-image: url('https://img.freepik.com/vector-premium/paisaje-al-atardecer-rio-montana-silueta_104785-949.jpg?size=626&ext=jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div[id="9"],
+        div[id="21"] {
+            background-image: url('https://static.vecteezy.com/system/resources/previews/020/374/158/non_2x/cartoon-nature-landscape-with-sun-and-mountains-illustration-vector.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div[id="10"],
+        div[id="22"] {
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/002/836/813/small_2x/outer-space-landscape-free-vector.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div[id="11"],
+        div[id="23"] {
+            background-image: url('https://img.freepik.com/vector-premium/fondo-ladera-cielo-purpura-ilustracion-paisaje-arbol_105940-399.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        div[id="12"],
+        div[id="24"] {
+            background-image: url('https://img.freepik.com/vector-premium/paisaje-naturaleza-noche-bosque_16058-79.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+
+        .dates_container {
+            flex-grow: 1;
+            padding: 10px;
+            background-color: #373A40;
+            overflow-y: auto;
+        }
+
+        .dates_container h1 {
+            font-family: "Montserrat", sans-serif;
+            color: #EEEEEE;
+            border-bottom: 1px solid #EEEEEE56;
+        }
+
+        .agregarDiv {
+            color: #EEEEEE;
+            font-family: "Quicksand", sans-serif;
+            margin-top: 20px;
+            font-size: 3vh;
+            width: 100%;
+            text-align: center;
+        }
+
+        .agregarDiv a:visited {
+            color: #DC5F00;
+        }
+
+        .date {
+            position: relative;
+            border-radius: 8px;
+            margin-top: 15px;
+            height: 25vh;
+            background-color: #EEEEEE;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        .tit {
+            font-family: "Montserrat", sans-serif;
+            position: absolute;
+            display: flex;
+            gap: 15px;
+            top: 4%;
+            left: 2%;
+            font-size: 2vw;
+            margin: 0%;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.363);
+        }
+
+        .tit i {
+            font-size: 2.8vh;
+        }
+
+        .cat {
+            position: absolute;
+            top: 18%;
+            left: 2%;
+            font-family: "Montserrat", sans-serif;
+            font-size: 2vh;
+        }
+
+        .desc {
+            position: absolute;
+            top: 35%;
+            left: 2%;
+            font-family: "Roboto Mono", monospace;
+            font-size: 2vh;
+        }
+
+        .edit {
+            position: absolute;
+            top: 80%;
+            left: 70%;
+            font-size: 2.5vh;
+            font-family: "Montserrat", sans-serif;
+            border: 2px solid #0C359E;
+            color: #0C359E;
+            text-decoration: none;
+            padding: 0.5vh;
+        }
+
+        .eli {
+            position: absolute;
+            top: 80%;
+            left: 83%;
+            font-size: 2.5vh;
+            font-family: "Montserrat", sans-serif;
+            border: 2px solid #C73659;
+            color: #C73659;
+            text-decoration: none;
+            padding: 0.5vh;
+        }
+
+        .fec {
+            position: absolute;
+            margin: 0%;
+            font-family: "Montserrat", sans-serif;
+            font-size: 3vh;
+            top: 80%;
+            left: 2%;
+        }
+
+        .iconos {
+            position: absolute;
+            height: 60px;
+            width: 120px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            flex-wrap: nowrap;
+            top: 4%;
+            left: 80%;
+        }
+
+        .icon {
+            height: 35px;
+            width: 40px;
+            margin: 5px;
+        }
+
+        .months::-webkit-scrollbar{
+            width: 0.7em;
+            background-color: #1A2130;
+        }
+
+        .dates_container::-webkit-scrollbar{
+            width: 0.7em;
+            background-color: #373A40;
+        }
+
+
+        .months::-webkit-scrollbar-thumb, .dates_container::-webkit-scrollbar-thumb {
+            background-color: #EEEEEE;
+            border-radius: 4px;
+        }
+        
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const months = document.querySelectorAll('.month');
+            months.forEach(month => {
+                month.addEventListener('click', function () {
+                    fetch(`/fechasPorMes/${month.id}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const datesContainer = document.querySelector('.dates');
+
+                            // Limpiar el contenedor de fechas antes de añadir nuevas
+                            datesContainer.innerHTML = ''; // Vacía el contenido del contenedor
+
+                            data.forEach(fecha => {
+                                const fechaDiv = document.createElement('div');
+                                fechaDiv.className = 'date';
+                                fechaDiv.innerHTML = `
+                            <div class="tit">${fecha.titulo}<a href="${fecha.enlace}" target="_blank"><i class="fa-solid fa-up-right-from-square"></i></a></div>
+                            <p class="cat">${fecha.categoria}</p> 
+                            <p class="fec">Día de lanzamiento: ${fecha.fecha_dia}</p>
+                            <div class="iconos"></div>
+                            <p class="desc">"${fecha.descripcion}"</p>
+                            <a class="edit" href="/editarFecha/${fecha.id}">Editar</a>
+                            <a class="eli" href="/eliminarFecha/${fecha.id}">Eliminar</a>
+                            
+                        `;
+
+                                const iconosDiv = fechaDiv.querySelector('.iconos');
+
+                                // Condicionales para cada plataforma
+                                if (fecha.steam) {
+                                    const img = document.createElement('img');
+                                    img.src = 'https://static-00.iconduck.com/assets.00/steam-icon-2026x2048-3b7rynay.png';
+                                    img.className = 'icon';
+                                    iconosDiv.appendChild(img);
+                                }
+                                if (fecha.epic) {
+                                    const img = document.createElement('img');
+                                    img.src = 'https://cdn.icon-icons.com/icons2/3914/PNG/512/epicgames_logo_icon_248935.png';
+                                    img.className = 'icon';
+                                    iconosDiv.appendChild(img);
+                                }
+                                if (fecha.gog) {
+                                    const img = document.createElement('img');
+                                    img.src = 'https://cdn.icon-icons.com/icons2/2248/PNG/512/gog_icon_135545.png';
+                                    img.className = 'icon';
+                                    iconosDiv.appendChild(img);
+                                }
+                                if (fecha.gamepass) {
+                                    const img = document.createElement('img');
+                                    img.src = 'https://seeklogo.com/images/X/xbox-game-pass-logo-AE8A6FFA38-seeklogo.com.png';
+                                    img.className = 'icon';
+                                    iconosDiv.appendChild(img);
+                                }
+                                if (fecha.ubisoftplus) {
+                                    const img = document.createElement('img');
+                                    img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Ubisoft_logo.svg/2238px-Ubisoft_logo.svg.png';
+                                    img.className = 'icon';
+                                    iconosDiv.appendChild(img);
+                                }
+                                if (fecha.eaplay) {
+                                    const img = document.createElement('img');
+                                    img.src = 'https://logos-world.net/wp-content/uploads/2020/08/Electronic-Arts-Logo-2000-present.png';
+                                    img.className = 'icon';
+                                    iconosDiv.appendChild(img);
+                                }
+                                datesContainer.appendChild(fechaDiv);
+                            });
+                        })
+                        .catch(error => console.error('Error al mostrar las fechas: ', error));
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="months">
+            <div class="month" id="1">
+                <p>Enero 2024</p>
+            </div>
+            <div class="month" id="2">
+                <p>Febrero 2024</p>
+            </div>
+            <div class="month" id="3">
+                <p>Marzo 2024</p>
+            </div>
+            <div class="month" id="4">
+                <p>Abril 2024</p>
+            </div>
+            <div class="month" id="5">
+                <p>Mayo 2024</p>
+            </div>
+            <div class="month" id="6">
+                <p>Junio 2024</p>
+            </div>
+            <div class="month" id="7">
+                <p>Julio 2024</p>
+            </div>
+            <div class="month" id="8">
+                <p>Agosto 2024</p>
+            </div>
+            <div class="month" id="9">
+                <p>Septiembre 2024</p>
+            </div>
+            <div class="month" id="10">
+                <p>Octubre 2024</p>
+            </div>
+            <div class="month" id="11">
+                <p>Noviembre 2024</p>
+            </div>
+            <div class="month" id="12">
+                <p>Diciembre 2024</p>
+            </div>
+            <div class="month" id="13">
+                <p>Enero 2025</p>
+            </div>
+            <div class="month" id="14">
+                <p>Febrero 2025</p>
+            </div>
+            <div class="month" id="15">
+                <p>Febrero 2025</p>>
+            </div>
+            <div class="month" id="16">
+                <p>Abril 2025</p>
+            </div>
+            <div class="month" id="17">
+                <p>Mayo 2025</p>
+            </div>
+            <div class="month" id="18">
+                <p>Junio 2025</p>
+            </div>
+            <div class="month" id="19">
+                <p>Julio 2025</p>
+            </div>
+            <div class="month" id="20">
+                <p>Agosto 2025</p>
+            </div>
+            <div class="month" id="21">
+                <p>Septiembre 2025</p>
+            </div>
+            <div class="month" id="22">
+                <p>Octubre 2025</p>
+            </div>
+            <div class="month" id="23">
+                <p>Noviembre 2025</p>
+            </div>
+            <div class="month" id="24">
+                <p>Diciembre 2025</p>
+            </div>
+        </div>
+        <div class="dates_container">
+            <div>
+                <h1>LANZAMIENTOS</h1>
+            </div>
+            <div class="dates">
+            </div>
+            <div class="agregarDiv">
+                ¡<a href="/agregarFecha">Agregar</a> un nuevo lanzamiento!
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
