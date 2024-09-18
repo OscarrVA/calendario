@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/png" href="https://pbs.twimg.com/media/F52fEAEXIAA5FiN.png" sizes="48x48"> 
+    <title>Gráfico {{year}}</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000000;
+            color: #ebebeb;
+        }
+        .regresar{
+            position: absolute;
+            top: 5%;
+            left: 2%;
+            width: 20vh;
+            height: 5vh;
+            font-size: 3.5vh;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        .regresar a{
+            text-decoration: none;
+        }
+
+        .regresar a:visited{
+            color: #ebebeb;
+        }
+    </style>
+</head>
+<body>
+     <div class="regresar">
+        <a href="/"><i class="fa-solid fa-reply"></i> Regresar</a>
+    </div>
+    <img src="/static/output.png" alt="Gráfico">
+</body>
+</html>

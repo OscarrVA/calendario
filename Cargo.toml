@@ -9,9 +9,12 @@ edition = "2021"
 rusqlite = { version = "0.31.0", features = ["bundled"] }
 rocket = {version = "0.5.1", features = ["json"]}
 chrono = {version = "0.4.38", features = ["serde"]}
+reqwest = { version = "0.12", features = ["json"] }
 serde = "1.0.202"
+serde_json = "1.0.128"
 dotenvy = "0.15.7"
 dotenv = "0.15.0"
+plotters = "0.3.6"
 
 [dependencies.rocket_dyn_templates]
 version = "0.2.0"

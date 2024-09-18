@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use rusqlite::{Connection,Result,params};
 
 use crate::models;
@@ -12,13 +13,15 @@ use sql_queries::CONSULTAR_FECHAS_BY_ID_DIV_QUERY;
 use sql_queries::CONSULTAR_FECHA_BY_ID_QUERY;
 use sql_queries::ACTUALIZAR_FECHA_EN_BD_QUERY;
 use sql_queries::ELIMINAR_FECHA_POR_ID_EN_BD_QUERY;
+use sql_queries::CONTAR_FECHAS_POR_MESES_2024;
+use sql_queries::CONTAR_FECHAS_POR_MESES_2025;
 
 /// Establece una conexión a la base de datos.
 pub fn establecer_conexion() -> Result<Connection> {
     Connection::open(BD_NOMBRE)
 }
 
-/// Crea una tabla si no existe.
+/// Crear la tabla 'fechas' si no existe.
 pub fn crear_tabla(conn: &Connection) -> Result<()> {
     conn.execute(CREAR_TABLA_FECHAS_QUERY, params![])?;
 
@@ -26,7 +29,7 @@ pub fn crear_tabla(conn: &Connection) -> Result<()> {
 }
 
 /// Inserta en la tabla 'fechas' una lanzamiento.
-pub fn insertar_fecha_en_bd(conn: &Connection, fecha: &Fecha) -> Result<usize> {
+pub fn insertar_fecha_en_bd(conn: &Connection, fecha: &Fecha, imagen_url: String) -> Result<usize> {
 
     let mut fecha_id: i32 = 0;
     let mut fecha_dia: i32 = 0;
@@ -52,22 +55,26 @@ pub fn insertar_fecha_en_bd(conn: &Connection, fecha: &Fecha) -> Result<usize> {
         fecha.ubisoftplus,
         fecha.eaplay,
         fecha.enlace,
-        fecha.descripcion
+        fecha.descripcion,
+        imagen_url
     ])
 }
 
+
 /// Saca el id_div y el dia de la fecha que viene del objeto Fecha.
 pub fn separar_fecha(fecha: &Fecha) -> Result<[i32; 2], &'static str> {
-    let mut id: i32 = 0;
+    let id: i32;
 
     let partes: Vec<&str> = fecha.fecha.split('-').collect();
     if partes.len() != 3 {
         return Err("Formato de fecha incorrecto");
     }
 
-    let año = partes[0].parse::<i32>().map_err(|_| "El año no es un número válido")?;
-    let mes = partes[1].parse::<i32>().map_err(|_| "El mes no es un número válido")?;
-    let dia = partes[2].parse::<i32>().map_err(|_| "El día no es un número válido")?;
+    let str_numero_invalido: &str = "El año no es un número válido";
+
+    let año = partes[0].parse::<i32>().map_err(|_| str_numero_invalido)?;
+    let mes = partes[1].parse::<i32>().map_err(|_| str_numero_invalido)?;
+    let dia = partes[2].parse::<i32>().map_err(|_| str_numero_invalido)?;
 
     // Asignar 'id' basado en el año y el mes
     id = match año {
@@ -124,6 +131,7 @@ pub fn get_fechas_por_id_div(conn: &Connection, id_div: i32) -> Result<Vec<Fecha
             row.get(9)?, // eaplay
             row.get(10)?, // enlace
             row.get(11)?, // descripcion
+            row.get(12)?, //imagen_url
         ))
     })?;
 
@@ -244,4 +252,34 @@ pub fn eliminar_fecha_por_id_en_bd(conn: &Connection, id: i32) -> Result<()>{
     conn.execute(ELIMINAR_FECHA_POR_ID_EN_BD_QUERY,params![id],)?;
 
     Ok(())
+}
+
+/// Regrese un Hashmap con la cantidad de fechas de cada mes.
+pub fn contar_todas_fechas_por_mes(conn: &Connection, year: i32)-> Result<HashMap<i32, i32>, rusqlite::Error> {
+    
+    let year_querie: &str;
+
+    if year == 2024 {
+        year_querie = CONTAR_FECHAS_POR_MESES_2024;
+    }
+    else {
+        year_querie = CONTAR_FECHAS_POR_MESES_2025;
+    }
+
+    let mut stmt = conn.prepare(year_querie)?;
+    let rows = stmt.query_map([], |row| {
+        Ok((row.get(0)?, row.get(1)?))
+    })?;
+
+    let mut counts = HashMap::new();
+    for count_result in rows {
+        let (id_div, count): (i32, i32) = count_result?;
+        counts.insert(id_div, count);
+    }
+
+    /* for (id_div, count) in &counts {
+        println!("id mes: {}, cantidad: {}", id_div, count);
+    } */
+
+    Ok(counts)
 }

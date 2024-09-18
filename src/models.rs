@@ -5,18 +5,16 @@ pub struct Fecha{
     pub titulo: String,
     pub fecha: String,
     pub categoria: String,
-        pub steam: bool,
-        pub epic: bool,
-        pub gog: bool,
-        pub gamepass: bool,
-        pub ubisoftplus: bool,
-        pub eaplay: bool,
+    pub steam: bool,
+    pub epic: bool,
+    pub gog: bool,
+    pub gamepass: bool,
+    pub ubisoftplus: bool,
+    pub eaplay: bool,
     pub enlace: String,
-    pub descripcion: String,
-    
+    pub descripcion: String
 }
 
-// Define el tipo para facilitar la referencia en la firma de la función.
 pub type FechaBD = (
     i32, // id
     String, // titulo
@@ -29,7 +27,8 @@ pub type FechaBD = (
     bool, // ubisoftplus
     bool, // eaplay
     String, // enlace
-    String // descripcion
+    String, // descripcion
+    String //imagen_url
 );
 
 #[derive(Serialize)]
@@ -38,12 +37,13 @@ pub struct FechaJson {
     pub titulo: String,
     pub fecha_dia: i32,
     pub categoria: String,
-        pub steam: bool,
-        pub epic: bool,
-        pub gog: bool,
-        pub gamepass: bool,
-        pub ubisoftplus: bool,
-        pub eaplay: bool,
+    pub steam: bool,
+    pub epic: bool,
+    pub gog: bool,
+    pub gamepass: bool,
+    pub ubisoftplus: bool,
+    pub eaplay: bool,
     pub enlace: String,
-    pub descripcion: String
+    pub descripcion: String,
+    pub imagen_url: String,
 }

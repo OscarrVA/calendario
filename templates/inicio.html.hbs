@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>{{title}}</title>
+    {{!--
+    <link rel="icon" type="image/x-icon" href="favicon.ico"> --}}
+    <link rel="icon" type="image/png" href="https://pbs.twimg.com/media/F52fEAEXIAA5FiN.png" sizes="48x48">
+    <title>{{titulo}}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;1,300&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
@@ -201,6 +204,22 @@
             text-align: center;
         }
 
+        .graficosDiv {
+            font-family: "Montserrat", sans-serif;
+            margin-top: 20px;
+            font-size: 2.5vh;
+            width: 100%;
+            text-align: center;
+        }
+
+        .graficosDiv a {
+            padding-right: 15px;
+        }
+
+        .graficosDiv a:visited {
+            color: #088395;
+        }
+
         .agregarDiv a:visited {
             color: #DC5F00;
         }
@@ -248,11 +267,12 @@
 
         .edit {
             position: absolute;
-            top: 80%;
+            top: 75%;
             left: 70%;
             font-size: 2.5vh;
             font-family: "Montserrat", sans-serif;
-            border: 2px solid #0C359E;
+            font-weight: bold;
+            border: 3px solid #0C359E;
             color: #0C359E;
             text-decoration: none;
             padding: 0.5vh;
@@ -260,11 +280,12 @@
 
         .eli {
             position: absolute;
-            top: 80%;
+            top: 75%;
             left: 83%;
             font-size: 2.5vh;
             font-family: "Montserrat", sans-serif;
-            border: 2px solid #C73659;
+            font-weight: bold;
+            border: 3px solid #C73659;
             color: #C73659;
             text-decoration: none;
             padding: 0.5vh;
@@ -297,22 +318,41 @@
             margin: 5px;
         }
 
-        .months::-webkit-scrollbar{
+        .margen{
+            margin-top: 15px;
+            height: 25vh;
+            position: relative;
+            z-index: 999;
+        }
+
+        .imagen_fecha {
+            position: absolute;
+            top: 0;
+            left: 58%;
+            height: 25vh;
+            width: 42%;
+            filter: opacity(40%);
+            border-top-left-radius: 50%;
+            border-bottom-left-radius: 50%;
+            z-index: 0;
+        }
+
+        .months::-webkit-scrollbar {
             width: 0.7em;
             background-color: #1A2130;
         }
 
-        .dates_container::-webkit-scrollbar{
+        .dates_container::-webkit-scrollbar {
             width: 0.7em;
             background-color: #373A40;
         }
 
 
-        .months::-webkit-scrollbar-thumb, .dates_container::-webkit-scrollbar-thumb {
+        .months::-webkit-scrollbar-thumb,
+        .dates_container::-webkit-scrollbar-thumb {
             background-color: #EEEEEE;
             border-radius: 4px;
         }
-        
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -331,17 +371,23 @@
                                 const fechaDiv = document.createElement('div');
                                 fechaDiv.className = 'date';
                                 fechaDiv.innerHTML = `
+                            <div class="margen">
                             <div class="tit">${fecha.titulo}<a href="${fecha.enlace}" target="_blank"><i class="fa-solid fa-up-right-from-square"></i></a></div>
                             <p class="cat">${fecha.categoria}</p> 
                             <p class="fec">Día de lanzamiento: ${fecha.fecha_dia}</p>
                             <div class="iconos"></div>
                             <p class="desc">"${fecha.descripcion}"</p>
                             <a class="edit" href="/editarFecha/${fecha.id}">Editar</a>
-                            <a class="eli" href="/eliminarFecha/${fecha.id}">Eliminar</a>
-                            
+                            <a class="eli" href="/eliminarFecha/${fecha.id}" onclick="return confirm('¿Estas seguro de eliminar esta fecha?');">Eliminar</a>
+                            </div>
+                            <img src="${fecha.imagen_url}" class="imagen_fecha">
                         `;
 
                                 const iconosDiv = fechaDiv.querySelector('.iconos');
+
+                                function ocultarDiv() {
+  document.getElementById("fondo_negro").style.display = "none";
+}
 
                                 // Condicionales para cada plataforma
                                 if (fecha.steam) {
@@ -436,7 +482,7 @@
                 <p>Febrero 2025</p>
             </div>
             <div class="month" id="15">
-                <p>Febrero 2025</p>>
+                <p>Marzo 2025</p>
             </div>
             <div class="month" id="16">
                 <p>Abril 2025</p>
@@ -474,6 +520,10 @@
             </div>
             <div class="agregarDiv">
                 ¡<a href="/agregarFecha">Agregar</a> un nuevo lanzamiento!
+            </div>
+            <div class="graficosDiv">
+                <a href="/grafico/2024">Gráfico 2024</a>
+                <a href="/grafico/2025">Gráfico 2025</a>
             </div>
         </div>
     </div>
