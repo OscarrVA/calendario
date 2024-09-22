@@ -212,7 +212,7 @@ fn unir_fecha(id_div: &str, fecha_dia: &str) -> Result<String, ()> {
 }
 
 ///Actualiza en la BD la fecha por el id.
-pub fn actualizar_fecha_en_db(conn: &Connection, fecha: &Fecha, id: i32) -> Result<()>{
+pub fn actualizar_fecha_en_db(conn: &Connection, fecha: &Fecha, imagen_url: String,id: i32) -> Result<()>{
 
     let mut fecha_id: i32 = 0;
     let mut fecha_dia: i32 = 0;
@@ -239,6 +239,7 @@ pub fn actualizar_fecha_en_db(conn: &Connection, fecha: &Fecha, id: i32) -> Resu
             fecha.eaplay,
             fecha.enlace,
             fecha.descripcion,
+            imagen_url,
             id  // El ID es usado para identificar qué fila actualizar
         ],
     )?;

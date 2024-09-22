@@ -49,7 +49,8 @@ pub const ACTUALIZAR_FECHA_EN_BD_QUERY: &str =
             eaplay = ?10,
             enlace = ?11,
             descripcion = ?12,
-        WHERE id = ?13";
+            url_imagen = ?13
+        WHERE id = ?14";
 
 pub const ELIMINAR_FECHA_POR_ID_EN_BD_QUERY: &str = "DELETE FROM fechas WHERE id = ?1";
 

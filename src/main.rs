@@ -105,12 +105,14 @@ fn editar_fecha(id: i32) -> Template {
 }
 
 #[post("/actualizarFecha/<id>", data="<fecha_form>")]
-fn actualizar_fecha(fecha_form: Form<Fecha>, id: i32) -> Redirect{
+async fn actualizar_fecha(fecha_form: Form<Fecha>, id: i32) -> Redirect{
 
     let fecha_obj = fecha_form.into_inner();
 
+    let imagen_url = buscar_imagen(&fecha_obj.titulo, keys::API_KEY, keys::SEARCH_ENGINE_ID).await.unwrap_or_default();
+
     let conn = establecer_conexion().expect(sql_queries::ERROR_CONEXION_BD);
-    let actualizar_bool = match actualizar_fecha_en_db(&conn, &fecha_obj,id) {
+    let actualizar_bool = match actualizar_fecha_en_db(&conn, &fecha_obj,imagen_url,id) {
         Ok(_) => {
             println!("Fecha actualizada correctamente");
             true},
